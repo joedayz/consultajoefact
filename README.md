@@ -11,7 +11,7 @@ Esta versión 1.0 esta hecha con Maven, PrimeFaces y corre en Tomcat 8.
 
 ## Configuración de Bd en Tomcat ##
 
-La configuración a la Bd es realizada en en persistence.xml
+La configuración a la Bd es realizada en el __persistence.xml__
 
 ```
     <persistence-unit name="PedidoPU">
@@ -27,4 +27,31 @@ La configuración a la Bd es realizada en en persistence.xml
 
 
     </persistence-unit>
+```
+
+En el Tomcat se tiene que agregar dicho Resource en el archivo __server.xml__ del Tomcat mismo (tomcat/conf/server.xml)
+
+```
+  <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
+
+
+        <Resource
+            auth="Container"
+            driverClassName="com.mysql.jdbc.Driver"
+            maxActive="5"
+            maxIdle="2"
+            maxWait="5000"
+            name="jdbc/facturaelectronica"
+            username="root"
+            password="joedayz"
+            testOnBorrow="true"
+            type="javax.sql.DataSource"
+            url="jdbc:mysql://localhost/facturaelectronica"
+            />  
+            
+       ...     
+</GlobalNamingResources>
 ```
