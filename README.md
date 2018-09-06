@@ -8,6 +8,12 @@ Esta versión 1.0 esta hecha con Maven, PrimeFaces y corre en Tomcat 8.
 
 ![Consulta Web de Documentos](https://github.com/joedayz/consultajoefact/blob/master/images/consulta-documentos.png)
 
+## Requisitos ##
+
+  - Java 8
+  - [Simple-Email] (https://github.com/codylerum/simple-email), aplicar un __mvn install__
+
+
 
 ## Configuración de Bd en el Proyecto ##
 
