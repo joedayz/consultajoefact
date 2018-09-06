@@ -7,7 +7,7 @@
 
 
     <interceptors>
-        <class>pe.joedayz.cofaco.util.jpa.TransactionInterceptor</class>
+        <class>pe.joedayz.joefact.util.jpa.TransactionInterceptor</class>
     </interceptors>
 
 </beans>

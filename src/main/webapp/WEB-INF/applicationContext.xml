@@ -6,7 +6,7 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 	<beans:bean id="appUserDetailsService"
-		class="pe.joedayz.cofaco.security.AppUserDetailsService" />
+		class="pe.joedayz.joefact.security.AppUserDetailsService" />
 
 	<beans:bean id="exceptionTranslationFilter"
 		class="org.springframework.security.web.access.ExceptionTranslationFilter">
@@ -15,20 +15,20 @@
 	</beans:bean>
 
 	<beans:bean id="jsfAccessDeniedHandler"
-		class="pe.joedayz.cofaco.security.util.JsfAccessDeniedHandler">
+		class="pe.joedayz.joefact.security.util.JsfAccessDeniedHandler">
 		<beans:property name="loginPath"
 			value="/ConsultaFacturacionElectronica/excepciones/accesoDenegado.xhtml" />
 		<beans:property name="contextRelative" value="true" />
 	</beans:bean>
 
 	<beans:bean id="authenticationEntryPoint"
-		class="pe.joedayz.cofaco.security.util.JsfLoginUrlAuthenticationEntryPoint">
+		class="pe.joedayz.joefact.security.util.JsfLoginUrlAuthenticationEntryPoint">
 		<beans:property name="loginFormUrl" value="/login.xhtml" />
 		<beans:property name="redirectStrategy" ref="jsfRedirectStrategy" />
 	</beans:bean>
 
 	<beans:bean id="jsfRedirectStrategy"
-		class="pe.joedayz.cofaco.security.util.JsfRedirectStrategy" />
+		class="pe.joedayz.joefact.security.util.JsfRedirectStrategy" />
 
 
 	<http pattern="/login.xhtml" security="none" />
@@ -62,7 +62,7 @@
 
 
 	<beans:bean id="customWebAuthenticationDetailsSource"
-		class="pe.joedayz.cofaco.security.CustomWebAuthenticationDetailsSource" />
+		class="pe.joedayz.joefact.security.CustomWebAuthenticationDetailsSource" />
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="appUserDetailsService">

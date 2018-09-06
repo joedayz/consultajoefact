@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$/../DemoSpringBoot" value="1490435004000" />
+        <entry key="$PROJECT_DIR$/../DemoStart" value="1490430534000" />
+        <entry key="$PROJECT_DIR$/../Testing Java Microservices 1P Review Source Code/comments-service" value="4437434958000" />
+        <entry key="$PROJECT_DIR$/../Testing Java Microservices 1P Review Source Code/video-service" value="4437434958000" />
+        <entry key="$PROJECT_DIR$/../campusbackend" value="1490413148000" />
+        <entry key="$PROJECT_DIR$/../rkbackend" value="1491011635000" />
+        <entry key="$PROJECT_DIR$/../rrhh-backend" value="1490461910000" />
+        <entry key="$USER_HOME$/Projects/Celtic_Pricing_Backend" value="1472267214000" />
+        <entry key="$USER_HOME$/Projects/Celtic_Pricing_Frontend" value="1472267271000" />
+        <entry key="$USER_HOME$/Projects/SpringiA4_SourceCode/Chapter_05/Spittr" value="2830261148000" />
+        <entry key="$USER_HOME$/Projects/campusbackend" value="1481944083000" />
+        <entry key="$USER_HOME$/Projects/campusbitbucket/campusbackend" value="1480916914000" />
+        <entry key="$USER_HOME$/Projects/campusbitbucket/campusfrontend" value="1480917369000" />
+        <entry key="$USER_HOME$/Projects/campusfrontend" value="1472279500000" />
+        <entry key="$USER_HOME$/Projects/cosapi/frame3-prueba" value="2939559233000" />
+        <entry key="$USER_HOME$/Projects/gs-accessing-data-mongodb/complete" value="1476931191000" />
+        <entry key="$USER_HOME$/Projects/gs-crud-with-vaadin/complete" value="1469773112000" />
+        <entry key="$USER_HOME$/Projects/infraestructura-spring/config-server" value="5871968612000" />
+        <entry key="$USER_HOME$/Projects/rrhh-backend" value="1483303494000" />
+        <entry key="$USER_HOME$/Projects/runakuna_backend" value="1483775131000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-data-gemfire/complete" value="1477123760000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-data-jpa/complete" value="1477124353000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-data-mongodb/complete" value="1477124416000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-data-neo4j/complete" value="1477122942000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-data-rest/complete" value="1477125635000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-facebook/complete" value="1477122804000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-accessing-twitter/complete" value="1477122597000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-async-method/complete" value="1477124660000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-authenticating-ldap/complete" value="1477120583000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-batch-processing/complete" value="1477123276000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-caching-gemfire/complete" value="1477124150000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-caching/complete" value="1477125934000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-consuming-web-service/complete" value="1477125528000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-handling-form-submission/complete" value="1477124778000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-integration/complete" value="1477123810000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-managing-transactions/complete" value="1477124259000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-messaging-redis/complete" value="1477121678000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-messaging-stomp-websocket/complete" value="1477124893000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-producing-web-service/complete" value="1477125878000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-register-facebook-app" value="1477120945000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-register-twitter-app" value="1477122087000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-relational-data-access/complete" value="1477120078000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-rest-hateoas/complete" value="1477123564000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-rest-service-cors/complete" value="1477125257000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-scheduling-tasks/complete" value="1477119779000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-securing-web/complete" value="1477123384000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-spring-boot-docker/complete" value="1477126000000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-testing-web/complete" value="1477126402000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-uploading-files/complete" value="1477120274000" />
+        <entry key="$USER_HOME$/Projects/spring-guides/gs-validating-form-input/complete" value="1477123031000" />
+        <entry key="$USER_HOME$/Projects/titanic" value="1485235956000" />
+        <entry key="$USER_HOME$/Projects/tss/runakuna_backend" value="1483304985000" />
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../campusbackend" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../jcache" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../lombok-sample" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../progblog-examples/lombok-sample" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../rkbackend" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/blog-materials/code-examples/spring-cloud/spring-cloud-contract-consumer" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/blog-materials/code-examples/spring-cloud/spring-cloud-contract-provider" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/blog-materials/spring/gs-contract-rest/complete/contract-rest-client" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/blog-materials/spring/gs-contract-rest/complete/contract-rest-service" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/blog-materials/spring/spring-cloud-contract-sample" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/eventuate/eventuate-tram-examples-java-spring-todo-list/multi-module" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/eventuate/eventuate-tram-examples-java-spring-todo-list/single-module" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/factura-electronica/easyfactapi" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/joedayz/campusbackend" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/joedayz/joedayz.pe" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/pet-sitter" value="PREVIEW" />
+        <entry key="$USER_HOME$/Projects/rkbackend" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="733" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/local/bin/node" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
+  </component>
+  <component name="RunManager">
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/Projects/learning-akka/ch1/akkademy-db-java" value="1472592442000" />
+        <entry key="$USER_HOME$/Projects/learning-akka/ch1/akkademy-db-scala" value="1472592442000" />
+        <entry key="$USER_HOME$/Projects/learning-akka/ch2/akkademy-db-scala" value="1472592442000" />
+        <entry key="$USER_HOME$/akkademy-db" value="1472533435000" />
+      </map>
+    </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.18426104" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
