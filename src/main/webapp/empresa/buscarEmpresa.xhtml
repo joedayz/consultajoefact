@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+                <p:panel>
+
+                    <p:toolbar style="margin-top:20px">
+                        <f:facet name="left">
+                            <p:commandButton value="Buscar Empresa"
+                                             action="#{empresaBean.buscarEmpresaFiltros}" update="empresasTable"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:button value="Nuevo Empresa" outcome="/empresa/registrarEmpresa"/>
+                        </f:facet>
+                    </p:toolbar>
+
+                </p:panel>
+            </div>
+        </div>
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+
+                <p:panel>
+                    <div class="FontBold Fs18 hardblue" style="margin: 15px 10px">Busqueda empresas</div>
+                    <div class="Separator"></div>
+
+
+                    <h:form id="formBusqueda">
+
+                        <p:messages autoUpdate="true" closable="true"/>
+
+
+                        <div class="Separator"></div>
+
+                        <p:panelGrid columns="2" id="panelForm"
+                                     columnClasses="ui-grid-col-2,ui-grid-col-4" layout="grid"
+                                     styleClass="ui-panelgrid-blank"
+                                     style="border:0px none; background-color:transparent;">
+
+
+                            <p:outputLabel value="RUC" for="ruc"/>
+                            <p:inputText id="ruc"
+                                         value="#{empresaBean.filtros.epmrRuc}"/>
+
+                            <p:outputLabel value="Razon Social" for="razonSocial"/>
+                            <p:inputText id="razonSocial"
+                                         value="#{empresaBean.filtros.emprRazonSocial}"/>
+
+
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+
+
+            </div>
+        </div>
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+                <p:panel>
+                    <div class="FontBold Fs18 hardblue" style="margin: 15px 10px">Empresas Encontrados</div>
+                    <div class="Separator"></div>
+
+                    <p:dataTable id="empresasTable" var="empresa" value="#{empresaBean.empresasFiltrados}"
+                                 reflow="true"
+                                 emptyMessage="No se encontraron empresas para su busqueda" rows="20"
+                                 paginator="true" paginatorAlwaysVisible="false"
+                                 paginatorPosition="bottom">
+
+
+                        <p:column headerText="RUC">
+                            <h:outputLabel value="#{empresa.epmrRuc}" />
+                        </p:column>
+
+                        <p:column headerText="Razon Social">
+                            <h:outputLabel value="#{empresa.emprRazonSocial}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo Empresa">
+                            <h:outputLabel value="#{empresa.emprTipo}" />
+                        </p:column>
+
+                        <p:column style="text-align:center;width:100px">
+                            <p:button title="Editar" icon="ui-icon-pencil" outcome="/empresa/registrarEmpresa">
+                                <f:param name="empresa" value="#{empresa.idEmpresa}" />
+                            </p:button>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+
+
+
+                </p:panel>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+
+</ui:composition>

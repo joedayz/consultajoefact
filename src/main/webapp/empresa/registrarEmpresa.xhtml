@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+                <p:panel>
+
+                    <p:toolbar style="margin-top:20px">
+                        <f:facet name="left">
+                            <p:commandButton value="Grabar Empresa"
+                                             action="#{registroEmpresaBean.registrarEmpresa}"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:button value="Buscar Empresa" outcome="/empresa/buscarEmpresa"/>
+                        </f:facet>
+                    </p:toolbar>
+
+                </p:panel>
+            </div>
+        </div>
+
+        <f:metadata>
+            <o:viewParam name="empresa" value="#{registroEmpresaBean.empresa}"/>
+            <f:event listener="#{registroEmpresaBean.inicializar}"
+                     type="preRenderView"/>
+        </f:metadata>
+
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+
+                <p:panel>
+                    <div class="FontBold Fs18 hardblue"
+                         style="margin: 15px 10px">#{registroEmpresaBean.editando ? 'Editando Empresa' :
+                                                'Registrar Nuevo Empresa'}</div>
+                    <div class="Separator"></div>
+
+
+                    <h:form id="formRegistro">
+
+                        <p:growl id="msg"/>
+                        <p:messages autoUpdate="true"/>
+
+                        <div class="Separator"></div>
+
+                        <p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     style="border:0px none; background-color:transparent;">
+
+                            <p:outputLabel value="RUC" for="ruc" />
+                            <p:inputText id="ruc" maxlength="11"
+                                         value="#{registroEmpresaBean.empresa.epmrRuc}" />
+
+                            <p:outputLabel value="Razon Social" for="razonSocial" />
+                            <p:inputText id="razonSocial" maxlength="255"
+                                         value="#{registroEmpresaBean.empresa.emprRazonSocial}" />
+
+
+                            <p:outputLabel value="Tipo Empresa" for="tipoEmpresa" />
+                            <p:selectOneMenu id="tipoEmpresa"
+                                             value="#{registroEmpresaBean.empresa.emprTipo}">
+                                <f:selectItem itemLabel="INTERNO" itemValue="INTERNO" />
+                                <f:selectItem itemLabel="EXTERNO" itemValue="EXTERNO" />
+                            </p:selectOneMenu>
+
+
+
+                        </p:panelGrid>
+
+
+                    </h:form>
+
+                </p:panel>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+
+</ui:composition>

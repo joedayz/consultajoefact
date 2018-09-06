@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+                <p:panel>
+
+                    <p:toolbar style="margin-top:20px">
+                        <f:facet name="left">
+                            <p:commandButton value="Grabar Resumen Boleta"
+                                             action="#{registroResumenBajasBean.registrarResumendiaBaja}"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:button value="Buscar Resumen Boletas" outcome="/ResumenBajas/buscarResumenBaja"/>
+                        </f:facet>
+                    </p:toolbar>
+
+                </p:panel>
+            </div>
+        </div>
+
+        <f:metadata>
+            <o:viewParam name="resumendiaBaja" value="#{registroResumenBajasBean.resumendiaBaja}"/>
+            <f:event listener="#{registroResumenBajasBean.inicializar}"
+                     type="preRenderView"/>
+        </f:metadata>
+
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+
+                <p:panel>
+                    <div class="FontBold Fs18 hardblue"
+                         style="margin: 15px 10px">#{registroResumenBajasBean.editando ? 'Editando Resumen de Boleta' :
+                                                'Registrar Nuevo Resumen de Boleta'}</div>
+                    <div class="Separator"></div>
+
+
+                    <h:form id="formRegistro">
+
+                        <p:growl id="msg"/>
+                        <p:messages autoUpdate="true"/>
+
+                        <div class="Separator"></div>
+
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     style="border:0px none; background-color:transparent;">
+
+                            <p:outputLabel value="Ruc" for="ruc" />
+                            <p:inputText id="ruc" maxlength="11"
+                                         value="#{registroResumenBajasBean.resumendiaBaja.emprNroruc}" />
+
+                            <p:outputLabel value="Razon Social" for="razonSocial" />
+                            <p:inputText id="razonSocial" maxlength="255"
+                                         value="#{registroResumenBajasBean.resumendiaBaja.emprRazonsocial}" />
+
+                            <p:outputLabel value="Tipo" for="tipo" />
+                            <p:inputText id="tipo" maxlength="100"
+                                         value="#{registroResumenBajasBean.resumendiaBaja.resuTipo}"
+                                         readonly="true" />
+
+                            <p:outputLabel value="Fecha Emision" for="fechaEmision" />
+                            <p:calendar id="fechaEmision"
+                                        value="#{registroResumenBajasBean.fechaEmisiom}" showOn="button"
+                                        pattern="yyyy-MM-dd">
+                            </p:calendar>
+
+                            <p:outputLabel value="Fecha Comunicacion" for="fechaComunicacion" />
+                            <p:calendar id="fechaComunicacion"
+                                        value="#{registroResumenBajasBean.fechaComunicacion}" showOn="button"
+                                        pattern="yyyy-MM-dd">
+                                <p:ajax update="identificador" event="dateSelect" listener="#{registroResumenBajasBean.generaIdentificador}" />
+                            </p:calendar>
+
+                            <p:outputLabel value="Identificador" for="identificador" />
+                            <p:inputText id="identificador" maxlength="17"
+                                         value="#{registroResumenBajasBean.resumendiaBaja.resuIdentificador}"
+                                         readonly="true"
+                                          />
+                        </p:panelGrid>
+
+                    </h:form>
+
+                </p:panel>
+            </div>
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>

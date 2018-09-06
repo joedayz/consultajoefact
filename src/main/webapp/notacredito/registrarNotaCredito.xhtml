@@ -1,0 +1,436 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+                <p:panel>
+
+                    <p:toolbar style="margin-top:20px">
+                        <f:facet name="left">
+                            <p:commandButton value="Grabar Nota de Crédito"
+                                             action="#{registroNotaCreditoBean.registrarNotaCredito}"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:button value="Buscar Nota de Crédito" outcome="/notacredito/buscarNotaCredito"/>
+                        </f:facet>
+                    </p:toolbar>
+
+                </p:panel>
+            </div>
+        </div>
+
+        <f:metadata>
+            <o:viewParam name="notaCredito" value="#{registroNotaCreditoBean.notaCredito}"/>
+            <f:event listener="#{registroNotaCreditoBean.inicializar}"
+                     type="preRenderView"/>
+        </f:metadata>
+
+        <div class="Container100 ui-fluid">
+            <div class="ContainerIndent">
+
+                <h:form id="FrmNotaCredito">
+
+                    <p:panel>
+                        <div class="FontBold Fs18 hardblue"
+                             style="margin: 15px 10px">#{registroNotaCreditoBean.editando ? 'Editando Cabecera' :
+                                'Registrar Cabecera'}</div>
+
+                        <div class="Separator"></div>
+
+
+                        <p:growl id="msgs" showDetail="true"/>
+
+                        <p:messages id="messages" />
+
+                        <div class="Separator"></div>
+
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     style="border:0px none; background-color:transparent;">
+
+                            <p:outputLabel value="Razón Social" for="emprRazonsocial"/>
+                            <p:inputText id="emprRazonsocial" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprRazonsocial}"/>
+
+
+                            <p:outputLabel value="Ubigeo" for="emprUbigeo"/>
+                            <p:selectOneMenu id="emprUbigeo"
+                                             styleClass="ui-selectonemenu-label ui-inputfield ui-corner-all"
+                                             value="#{registroNotaCreditoBean.notaCredito.emprUbigeo}" required="true"
+                                             requiredMessage="Ingrese Ubigeo">
+                                <f:selectItems value="#{registroNotaCreditoBean.ubigeos}"
+                                               var="ubigeo" itemValue="#{ubigeo.codigoUbigeo}"
+                                               itemLabel="#{ubigeo.nombreUbigeo}" />
+                            </p:selectOneMenu>
+
+
+
+
+                            <p:outputLabel value="Nombre Comercial" for="emprNombrecomercial"/>
+                            <p:inputText id="emprNombrecomercial" maxlength="6"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprNombrecomercial}"/>
+
+
+                            <p:outputLabel value="Direccion" for="emprDireccion"/>
+                            <p:inputText id="emprDireccion" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprDireccion}"/>
+
+
+                            <p:outputLabel value="País" for="emprPais"/>
+                            <p:inputText id="emprPais" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprPais}"/>
+
+
+                            <p:outputLabel value="Departamento" for="emprDepartamento"/>
+                            <p:inputText id="emprDepartamento" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprDepartamento}"/>
+
+
+                            <p:outputLabel value="Provincia" for="emprProvincia"/>
+                            <p:inputText id="emprProvincia" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprProvincia}"/>
+
+
+                            <p:outputLabel value="Distrito" for="emprDistrito"/>
+                            <p:inputText id="emprDistrito" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprDistrito}"/>
+
+
+                            <p:outputLabel value="Nro. RUC de la Empresa" for="emprNroruc"/>
+                            <p:inputText id="emprNroruc" maxlength="11"
+                                         value="#{registroNotaCreditoBean.notaCredito.emprNroruc}"/>
+
+                            <p:outputLabel value="Nro. Cliente " for="clieNumero"/>
+                            <p:inputText id="clieNumero" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.clieNumero}"/>
+
+
+                            <p:outputLabel value="Tipo Doc. del Cliente " for="clieTipodoc"/>
+                            <p:selectOneMenu id="clieTipodoc"
+                                             value="#{registroNotaCreditoBean.notaCredito.clieTipodoc}">
+
+                                <f:selectItem itemLabel="DOC.TRIB.NO.DOM.SIN.RUC" itemValue="0" />
+                                <f:selectItem itemLabel="DOC. NACIONAL DE IDENTIDAD" itemValue="1" />
+                                <f:selectItem itemLabel="CARNET DE EXTRANJERIA" itemValue="4" />
+                                <f:selectItem itemLabel="REG. UNICO DE CONTRIBUYENTES" itemValue="6" />
+                                <f:selectItem itemLabel="PASAPORTE" itemValue="7" />
+                                <f:selectItem itemLabel="CED. DIPLOMATICA DE IDENTIDAD" itemValue="A" />
+
+
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="Nombre Cliente" for="clieNombre"/>
+                            <p:inputText id="clieNombre" maxlength="200"
+                                         value="#{registroNotaCreditoBean.notaCredito.clieNombre}"/>
+
+
+                            <p:outputLabel value="Fecha del Documento" for="docuFecha"/>
+                            <p:inputText id="docuFecha" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuFecha}"/>
+
+
+                            <p:outputLabel value="Nro. Documento" for="docuNumero"/>
+                            <p:inputText id="docuNumero" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuNumero}"/>
+
+
+                            <p:outputLabel value="Moneda" for="docuMoneda"/>
+                            <p:selectOneMenu id="docuMoneda"
+                                             value="#{registroNotaCreditoBean.notaCredito.docuMoneda}">
+
+                                <f:selectItem itemLabel="PEN" itemValue="PEN" />
+                                <f:selectItem itemLabel="USD" itemValue="USD" />
+
+                            </p:selectOneMenu>
+
+
+
+                            <p:outputLabel value="Docu. Gravada" for="docuGravada"/>
+                            <p:inputText id="docuGravada" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuGravada}"/>
+
+                            <p:outputLabel value="Docu. Inafecta" for="docuInafecta"/>
+                            <p:inputText id="docuInafecta" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuInafecta}"/>
+
+                            <p:outputLabel value="Docu. Exonerada" for="docuExonerada"/>
+                            <p:inputText id="docuExonerada" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuExonerada}"/>
+
+                            <p:outputLabel value="Docu. Gratuita" for="docuGratuita"/>
+                            <p:inputText id="docuGratuita" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuGratuita}"/>
+
+                            <p:outputLabel value="Docu. Descuento" for="docuDescuento"/>
+                            <p:inputText id="docuDescuento" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuDescuento}"/>
+
+                            <p:outputLabel value="Docu. Sub Total" for="docuSubtotal"/>
+                            <p:inputText id="docuSubtotal" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuSubtotal}"/>
+
+                            <p:outputLabel value="Docu. Total" for="docuTotal"/>
+                            <p:inputText id="docuTotal" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuTotal}"/>
+
+                            <p:outputLabel value="Docu. IGV" for="docuIgv"/>
+                            <p:inputText id="docuIgv" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuIgv}"/>
+
+                            <p:outputLabel value="Docu. ISC" for="docuIsc"/>
+                            <p:inputText id="docuIsc" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuIsc}"/>
+
+
+                            <p:outputLabel value="Tasa ISC" for="tasaIsc"/>
+                            <p:inputText id="tasaIsc" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.tasaIsc}"/>
+
+                            <p:outputLabel value="Docu. Otros Tributos" for="docuOtrostributos"/>
+                            <p:inputText id="docuOtrostributos" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuOtrostributos}"/>
+
+
+                            <p:outputLabel value="Tasa Otros Tributos" for="tasaOtrostributos"/>
+                            <p:inputText id="tasaOtrostributos" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.tasaOtrostributos}"/>
+
+                            <p:outputLabel value="Docu. Otros Cargos" for="docuOtroscargos"/>
+                            <p:inputText id="docuOtroscargos" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.docuOtroscargos}"/>
+
+
+
+                            <p:outputLabel value="Nota Motivo" for="notaMotivo"/>
+
+                            <p:selectOneMenu id="notaMotivo"
+                                             value="#{registroNotaCreditoBean.notaCredito.notaMotivo}">
+
+                                <f:selectItem itemLabel="Anulación de la operación" itemValue="01" />
+                                <f:selectItem itemLabel="Anulación por error en el RUC" itemValue="02" />
+                                <f:selectItem itemLabel="Corrección por error en la descripción" itemValue="03" />
+                                <f:selectItem itemLabel="Descuento global" itemValue="04" />
+                                <f:selectItem itemLabel="Descuento por item" itemValue="05" />
+                                <f:selectItem itemLabel="Devolución total" itemValue="06" />
+                                <f:selectItem itemLabel="Devolución por ítem" itemValue="07" />
+                                <f:selectItem itemLabel="Bonificación" itemValue="08" />
+                                <f:selectItem itemLabel="Disminución en el valor" itemValue="09" />
+                            </p:selectOneMenu>
+
+
+
+                            <p:outputLabel value="Nota Documento" for="notaDocumento"/>
+                            <p:inputText id="notaDocumento" maxlength="45"
+                                         value="#{registroNotaCreditoBean.notaCredito.notaDocumento}"/>
+
+
+                        </p:panelGrid>
+
+
+
+
+                        <div class="FontBold Fs18 hardblue"
+                             style="margin: 15px 10px">#{registroNotaCreditoBean.editando ? 'Editando Detalle' :
+                                'Registrar Detalle'}</div>
+
+                        <div class="Separator"></div>
+
+
+                        <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     style="border:0px none; background-color:transparent;">
+
+                            <p:outputLabel value="Item Moneda" for="itemMoneda"/>
+                            <p:selectOneMenu id="itemMoneda"
+                                             value="#{registroNotaCreditoBean.detalle.itemMoneda}">
+
+                                <f:selectItem itemLabel="PEN" itemValue="PEN" />
+                                <f:selectItem itemLabel="USD" itemValue="USD" />
+
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="Item Unidad" for="itemUnidad"/>
+                            <p:inputText id="itemUnidad" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemUnidad}"/>
+
+                            <p:outputLabel value="Item Cantidad" for="itemCantidad"/>
+                            <p:inputText id="itemCantidad" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemCantidad}"/>
+
+
+                            <p:outputLabel value="Item Cod. Producto" for="itemCodproducto"/>
+                            <p:inputText id="itemCodproducto" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemCodproducto}"/>
+
+                            <p:outputLabel value="Item Descripción" for="itemDescripcion"/>
+                            <p:inputText id="itemDescripcion" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemDescripcion}"/>
+
+
+                            <p:outputLabel value="Item Afectación" for="itemAfectacion"/>
+                            <p:inputText id="itemAfectacion" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemAfectacion}"/>
+
+
+
+
+                            <p:outputLabel value="Item Precio Venta" for="itemPventa"/>
+                            <p:inputText id="itemPventa" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemPventa}"/>
+
+
+                            <p:outputLabel value="Item Sub Total" for="itemTiSubtotal"/>
+                            <p:inputText id="itemTiSubtotal" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemTiSubtotal}"/>
+
+
+
+                            <p:outputLabel value="Item IGV" for="itemTiIgv"/>
+                            <p:inputText id="itemTiIgv" maxlength="45"
+                                         value="#{registroNotaCreditoBean.detalle.itemTiIgv}"/>
+
+
+                            <p:commandButton value="Agregar Detalle" action="#{registroNotaCreditoBean.agregarDetalle()}"
+                                             update="FrmNotaCredito, messages, dtDetalles" />
+
+                        </p:panelGrid>
+
+
+                        <p:spacer height="10" />
+
+                        <p:dataTable id="dtDetalles" emptyMessage="No se encontraron registros"
+                                     value="#{registroNotaCreditoBean.notaCredito.detalleSet}" var="d"
+                                     style="text-align:center; font-weight: bold;">
+                            <f:facet name="header">
+                                <h:outputText value="Detalles" />
+                            </f:facet>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Moneda" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemMoneda}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Oren" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemOrden}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Unidad" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemUnidad}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Unidad" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemUnidad}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cantidad" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemCantidad}" />
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cod. Producto" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemCodproducto}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Descripción" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemDescripcion}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Afectación" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemAfectacion}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Precio Venta" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemPventa}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Sub Total" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemTiSubtotal}" />
+                            </p:column>
+
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IGV" />
+                                </f:facet>
+                                <h:outputText value="#{d.itemTiIgv}" />
+                            </p:column>
+
+
+
+
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Eliminar" />
+                                </f:facet>
+                                <f:ajax event="click" render="@form"
+                                        listener="#{registroNotaCreditoBean.eliminarDetalle(d)}">
+                                    <h:commandLink value="Eliminar" />
+                                </f:ajax>
+
+
+
+
+                            </p:column>
+
+
+
+                        </p:dataTable>
+
+                    </p:panel>
+
+
+
+
+                </h:form>
+
+
+            </div>
+        </div>
+
+
+    </ui:define>
+
+
+</ui:composition>

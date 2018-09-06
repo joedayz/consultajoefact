@@ -1,0 +1,279 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+        <h:form id="formBusqueda">
+
+            <p:growl id="msg" />
+            <p:messages autoUpdate="true" />
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+
+
+
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <p:commandButton value="Buscar Venta"
+                                             action="#{ventaBean.buscarCabeceraFiltros}" update="ventasTable" />
+                        </f:facet>
+
+                    </p:toolbar>
+
+
+
+                </div>
+            </div>
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+
+                    <h2 class="BigTopic">Buscar Documentos</h2>
+
+
+                    <p:panelGrid columns="4"
+                                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 style="border:0px none; background-color:transparent;">
+
+                        <p:outputLabel for="numeroDocumento" value="Numero Documento" />
+                        <p:inputText id="numeroDocumento"
+                                     value="#{ventaBean.filtros.numeroDocumento}" />
+
+                        <p:outputLabel for="tipoDoc" value="Tipo de Documento" />
+                        <p:selectOneMenu id="tipoDoc"
+                                         value="#{ventaBean.filtros.tipoDocumento}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="-1" />
+                            <f:selectItem itemLabel="TODOS" itemValue="00" />
+                            <f:selectItems value="#{ventaBean.tipoDocumentos}" var="tipodoc"
+                                           itemValue="#{tipodoc}" itemLabel="#{tipodoc.nombreTipoDocu}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="fechaInicio" value="Fecha Inicio" />
+                        <p:calendar id="fechaInicio"
+                                    value="#{ventaBean.filtros.fechaInicio}" showOn="button"
+                                    pattern="yyyy-MM-dd">
+                            <p:ajax event="dateSelect" update="fechaFin" />
+                        </p:calendar>
+
+                        <p:outputLabel for="fechaFin" value="Fecha Fin" />
+                        <p:calendar id="fechaFin" value="#{ventaBean.filtros.fechaFin}"
+                                    showOn="button" mindate="#{ventaBean.filtros.fechaInicio}"
+                                    pattern="yyyy-MM-dd" />
+
+                        <p:outputLabel for="clieRuc" value="RUC" />
+                        <p:inputText id="clieRuc" value="#{ventaBean.filtros.clieRuc}" />
+
+                        <p:outputLabel for="clieRazonSocial" value="Razon Social" />
+                        <p:inputText id="clieRazonSocial"
+                                     value="#{ventaBean.filtros.clieRazonSocial}" />
+
+                        <p:outputLabel for="tipoDoc" value="Con CDR" />
+                        <p:selectOneMenu id="llegoCDR"
+                                         value="#{ventaBean.filtros.cdr}">
+
+                            <f:selectItem itemLabel="TODOS" itemValue="-1" />
+                            <f:selectItem itemLabel="No" itemValue="1" />
+                            <f:selectItem itemLabel="Si" itemValue="0" />
+
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="docuProceStatus" value="Estado de Envío a SUNAT" />
+                        <p:selectOneMenu id="docuProceStatus"
+                                         value="#{ventaBean.filtros.docuProceStatus}">
+
+                            <f:selectItem itemLabel="TODOS" itemValue="" />
+                            <f:selectItem itemLabel="Nuevo" itemValue="N" />
+                            <f:selectItem itemLabel="Bloqueo" itemValue="B" />
+                            <f:selectItem itemLabel="En Proceso" itemValue="P" />
+                            <f:selectItem itemLabel="Enviado" itemValue="E" />
+                            <f:selectItem itemLabel="Error de Envío" itemValue="X" />
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+                    <h2 class="BigTopic">Documentos Encontrados</h2>
+                    <h:commandLink >
+                        <p:graphicImage name="images/xml3.png" width="24" />
+                        <p:fileDownload value="#{ventaBean.fileZip}" />
+                    </h:commandLink>
+                    <p:dataTable id="ventasTable" var="venta"
+                                 value="#{ventaBean.ventasFiltradas}" rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="50,100,150,200"
+                                 emptyMessage="No hay ventas en dicho rango" reflow="true">
+
+                        <f:facet name="header">
+                            Ventas
+                        </f:facet>
+
+                        <p:column headerText="Emisión" sortBy="#{venta.docuFecha}"
+                                  width="90px;">
+                            <h:outputLabel value="#{venta.docuFecha}" />
+                        </p:column>
+
+                        <p:column headerText="Tipo de Documento"
+                                  sortBy="#{venta.docuTipodocumento}" width="105px;">
+                            <h:outputLabel value="#{venta.docuTipodocumento eq '01' ? '01-FACTURA': venta.docuTipodocumento eq '03' ? '03-BOLETA':venta.docuTipodocumento eq '07' ? '07-N. CREDITO':venta.docuTipodocumento eq '08' ? '08-N. DEBITO':venta.docuTipodocumento eq '20' ? '20-RETENCION':'' }" />
+                        </p:column>
+
+                        <p:column headerText="Numero de Documento" width="105px;"
+                                  sortBy="#{venta.docuNumero}">
+                            <h:outputLabel value="#{venta.docuNumero}" />
+                        </p:column>
+
+                        <p:column headerText="Doc. Cliente" sortBy="#{venta.clieNumero}" width="90px;">
+                            <h:outputLabel value="#{venta.clieNumero}" />
+                        </p:column>
+
+                        <p:column headerText="Cliente" sortBy="#{venta.clieNombre}">
+                            <h:outputLabel value="#{venta.clieNombre}" />
+                        </p:column>
+
+                        <p:column headerText="Importe" width="80px;">
+                            <h:outputLabel value="#{venta.docuSubtotal}" style="float:right"/>
+                        </p:column>
+
+                        <p:column headerText="Impuestos" width="80px;">
+                            <h:outputLabel value="#{venta.docuIgv}" style="float:right"/>
+                        </p:column>
+
+                        <p:column headerText="Total" width="80px;">
+                            <h:outputLabel value="#{venta.docuTotal}" style="float:right"/>
+                        </p:column>
+
+                        <p:column headerText="Cdr" sortBy="#{venta.cdr}" width="80px;">
+                            <p:commandButton value="#{venta.cdr}" 
+                                             action="#{ventaBean.getSeguimientos(venta.docuCodigo)}"
+                                             onclick="PF('dlgNormalizadosTipoEsquema3').show();" 
+                                             ajax="true"
+                                             update="seguimiento"
+                                             />
+                        </p:column>
+
+                        <p:column headerText="Estado Baja"  width="80px;">
+                            <p:commandButton  icon="ui-icon-trash" action="#{ventaBean.registraBajaBoleta}" update="ventasTable">
+                                    <p:confirm header="Baja a la boleta" 
+                                               message="Esta seguro de dar de Baja a la boleta "
+                                               icon="ui-icon-alert"/>
+                                    <f:setPropertyActionListener
+                                        target="#{ventaBean.cabeceraSeleccionada}" value="#{venta}" />
+                                </p:commandButton>
+                        </p:column>
+
+                        <p:column headerText="Recepción" sortBy="#{venta.docuProceFecha}"
+                                  width="90px;">
+                            <h:outputLabel value="#{venta.docuProceFecha}">
+                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+                            </h:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Archivos"
+                                  style="text-align:center;width:180px">
+                            <!--value="pdf" -->
+                            <p:commandButton value="pdf" ajax="false"
+                                             style="width: 30%; height: 15px;font-size:80%;#{venta.docuLinkPdf eq null || venta.docuLinkPdf.length() lt 1  ? 'visibility: hidden;':''}">
+                                <f:setPropertyActionListener
+                                    target="#{ventaBean.cabeceraSeleccionada}" value="#{venta}" />
+                                <p:fileDownload value="#{ventaBean.filePdf}" />
+                            </p:commandButton>
+                            <!--value="cdr" -->
+                            <p:commandButton value="cdr" ajax="false"
+                                             style="width: 30%; height: 15px;font-size:80%;#{venta.docuLinkCdr eq null || venta.docuLinkCdr.length() lt 1? 'visibility: hidden;':''}">
+                                <f:setPropertyActionListener
+                                    target="#{ventaBean.cabeceraSeleccionada}" value="#{venta}" />
+                                <p:fileDownload value="#{ventaBean.fileCdr}" />
+                            </p:commandButton>
+
+                            <!--value="xml" -->
+                            <p:commandButton value="xml" ajax="false"
+                                             style="width: 30%; height: 15px;font-size:80%;#{venta.docuLinkXml eq null || venta.docuLinkXml.length() lt 1? 'visibility: hidden;':''}">
+                                <f:setPropertyActionListener
+                                    target="#{ventaBean.cabeceraSeleccionada}" value="#{venta}" />
+                                <p:fileDownload value="#{ventaBean.fileXml}" />
+                            </p:commandButton>
+
+
+                        </p:column>
+
+
+                    </p:dataTable>
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+
+                    <script type="text/javascript">
+                        function start() {
+                            PF('statusDialog').show();
+                        }
+
+                        function stop() {
+                            PF('statusDialog').hide();
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+        </h:form>
+
+        <p:dialog id="dlgNormalizados3" widgetVar="dlgNormalizadosTipoEsquema3" width="900" height="420" modal="true"
+                  header="Seguimiento de incidencia"
+                  >
+            <h:form id="seguimiento">
+                <p:panelGrid columns="1" styleClass="contenidoCentrado" rendered="true">
+                    <p:dataTable id="listErrorNormalizacion3"
+                                 value="#{ventaBean.listaSeguimientos}"
+                                 var="seguimiento"
+                                 paginator="true"
+                                 rows="10"
+                                 style="font-size:11px;"
+                                 rowsPerPageTemplate="10,20,30,50">
+                        <p:column headerText="FECHA" >
+                            <h:outputText value="#{seguimiento.fechaSeguimiento}"/>
+                        </p:column>
+                        <p:column headerText="CODIGO"  width="52">
+                            <h:outputText value="#{seguimiento.cdrCode}"/>
+                        </p:column>
+                        <p:column headerText="ESTADO" >
+                            <h:outputText value="#{seguimiento.estadoSeguimiento eq 'O' ? 'Todo Procesado (OK)': seguimiento.estadoSeguimiento eq 'N' ? 'Nuevo':seguimiento.estadoSeguimiento eq 'B' ? 'Bloqueo':seguimiento.estadoSeguimiento eq 'P' ? 'Proceso':seguimiento.estadoSeguimiento eq 'E' ? 'Enviando a SUNAT': seguimiento.estadoSeguimiento eq 'F' ? 'FTP copia de seguridad de archivos': seguimiento.estadoSeguimiento eq 'C' ? 'Correo Electrónico': seguimiento.estadoSeguimiento eq 'X' ? 'Error de Envío':seguimiento.estadoSeguimiento eq 'ECDR' ? 'CDR':seguimiento.estadoSeguimiento eq 'Q' ? 'Error Proceso':seguimiento.estadoSeguimiento   }"
+                                          />
+                        </p:column>
+                        <p:column headerText="NOTA" >
+                            <h:outputText value="#{seguimiento.cdrNota}"/>
+                        </p:column>
+                        <p:column headerText="OBSERVACION" >
+                            <h:outputText value="#{seguimiento.cdrObservacion}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <h:commandLink>
+                                <p:graphicImage library="images" name="csv.png" />
+                                <p:dataExporter type="csv" target="listErrorNormalizacion3" fileName="listaIncidencia" />
+                            </h:commandLink>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+
+
+    </ui:define>
+
+</ui:composition>

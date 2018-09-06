@@ -1,0 +1,213 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+        <h:form id="formBusqueda">
+
+            <p:growl id="msg" />
+            <p:messages autoUpdate="true" />
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+
+
+
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <p:commandButton value="Buscar Notas de Crédito"
+                                             action="#{notaCreditoBean.buscarNotaCreditoFiltros}" update="ventasTable" />
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:button value="Nueva Nota de Crédito" outcome="/notacredito/registrarNotaCredito"/>
+                        </f:facet>
+                    </p:toolbar>
+
+
+
+                </div>
+            </div>
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+
+                    <h2 class="BigTopic">Buscar Notas de Crédito</h2>
+
+
+                    <p:panelGrid columns="4"
+                                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 style="border:0px none; background-color:transparent;">
+
+
+                        <p:outputLabel for="clieRuc" value="RUC" />
+                        <p:inputText id="clieRuc" value="#{notaCreditoBean.filtros.clieRuc}" />
+
+                        <p:outputLabel for="clieRazonSocial" value="Razon Social" />
+                        <p:inputText id="clieRazonSocial"
+                                     value="#{notaCreditoBean.filtros.clieRazonSocial}" />
+
+
+                    </p:panelGrid>
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+                    <h2 class="BigTopic">Nota de Créditos Encontradas</h2>
+
+                    <p:dataTable id="ventasTable" var="notaCredito"
+                                 value="#{notaCreditoBean.notaCreditoFiltradas}" rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="50,100,150,200"
+                                 emptyMessage="No hay notas de crédito para estos criterios" reflow="true">
+
+                        <f:facet name="header">
+                            Notas de Crédito
+                        </f:facet>
+
+                        <p:column headerText="Emisión" sortBy="#{notaCredito.docuFecha}"
+                                  width="90px;">
+                            <h:outputLabel value="#{notaCredito.docuFecha}" />
+                        </p:column>
+
+                        <p:column headerText="Numero de Documento" width="105px;"
+                                  sortBy="#{notaCredito.docuNumero}">
+                            <h:outputLabel value="#{notaCredito.docuNumero}" />
+                        </p:column>
+
+                        <p:column headerText="Doc. Cliente" sortBy="#{notaCredito.clieNumero}" width="90px;">
+                            <h:outputLabel value="#{notaCredito.clieNumero}" />
+                        </p:column>
+
+                        <p:column headerText="Cliente" sortBy="#{notaCredito.clieNombre}">
+                            <h:outputLabel value="#{notaCredito.clieNombre}" />
+                        </p:column>
+
+                        <p:column headerText="Importe" width="80px;">
+                            <h:outputLabel value="#{notaCredito.docuSubtotal}" style="float:right"/>
+                        </p:column>
+
+                        <p:column headerText="Impuestos" width="80px;">
+                            <h:outputLabel value="#{notaCredito.docuIgv}" style="float:right"/>
+                        </p:column>
+
+                        <p:column headerText="Total" width="80px;">
+                            <h:outputLabel value="#{notaCredito.docuTotal}" style="float:right"/>
+                        </p:column>
+
+                        <p:column headerText="Estado" width="80px;">
+                            <p:commandLink value="#{notaCredito.docuProceStatus eq 'O' ? 'Todo Procesado (OK)': notaCredito.docuProceStatus eq 'N' ? 'Nuevo':notaCredito.docuProceStatus eq 'B' ? 'Bloqueo':notaCredito.docuProceStatus eq 'P' ? 'Proceso':notaCredito.docuProceStatus eq 'E' ? 'Enviando a SUNAT': notaCredito.docuProceStatus eq 'F' ? 'FTP copia de seguridad de archivos': notaCredito.docuProceStatus eq 'C' ? 'Correo Electrónico': notaCredito.docuProceStatus eq 'X' ? 'Error de Envío':notaCredito.docuProceStatus eq 'ECDR' ? 'CDR':notaCredito.docuProceStatus eq 'Q' ? 'Error Proceso':notaCredito.docuProceStatus }"
+                                           action="#{notaCreditoBean.getSeguimientos(notaCredito.docuCodigo)}"
+                                           onclick="PF('dlgNormalizadosTipoEsquema3').show();"
+                                           ajax="true"
+                                           update="seguimiento"
+                            />
+                        </p:column>
+
+                        <p:column headerText="Recepción" sortBy="#{notaCredito.docuProceFecha}"
+                                  width="90px;">
+                            <h:outputLabel value="#{notaCredito.docuProceFecha}">
+                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+                            </h:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Archivos"
+                                  style="text-align:center;width:180px">
+                            <!--value="pdf" -->
+                            <p:commandButton value="pdf" ajax="false"
+                                             style="width: 30%; height: 15px;font-size:80%;#{notaCredito.docuLinkPdf eq null || notaCredito.docuLinkPdf.length() lt 1  ? 'visibility: hidden;':''}">
+                                <f:setPropertyActionListener
+                                        target="#{notaCreditoBean.cabeceraSeleccionada}" value="#{notaCredito}" />
+                                <p:fileDownload value="#{notaCreditoBean.filePdf}" />
+                            </p:commandButton>
+                            <!--value="cdr" -->
+                            <p:commandButton value="cdr" ajax="false"
+                                             style="width: 30%; height: 15px;font-size:80%;#{notaCredito.docuLinkCdr eq null || notaCredito.docuLinkCdr.length() lt 1? 'visibility: hidden;':''}">
+                                <f:setPropertyActionListener
+                                        target="#{notaCreditoBean.cabeceraSeleccionada}" value="#{notaCredito}" />
+                                <p:fileDownload value="#{notaCreditoBean.fileCdr}" />
+                            </p:commandButton>
+
+                            <!--value="xml" -->
+                            <p:commandButton value="xml" ajax="false"
+                                             style="width: 30%; height: 15px;font-size:80%;#{notaCredito.docuLinkXml eq null || notaCredito.docuLinkXml.length() lt 1? 'visibility: hidden;':''}">
+                                <f:setPropertyActionListener
+                                        target="#{notaCreditoBean.cabeceraSeleccionada}" value="#{notaCredito}" />
+                                <p:fileDownload value="#{notaCreditoBean.fileXml}" />
+                            </p:commandButton>
+
+
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    <script type="text/javascript">
+                        function start() {
+                            PF('statusDialog').show();
+                        }
+
+                        function stop() {
+                            PF('statusDialog').hide();
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+        </h:form>
+
+        <p:dialog id="dlgNormalizados3" widgetVar="dlgNormalizadosTipoEsquema3" width="900" height="420" modal="true"
+                  header="Seguimiento de incidencia"
+        >
+            <h:form id="seguimiento">
+                <p:panelGrid columns="1" styleClass="contenidoCentrado" rendered="true">
+                    <p:dataTable id="listErrorNormalizacion3"
+                                 value="#{notaCreditoBean.listaSeguimientos}"
+                                 var="seguimiento"
+                                 paginator="true"
+                                 rows="10"
+                                 style="font-size:11px;"
+                                 rowsPerPageTemplate="10,20,30,50">
+                        <p:column headerText="FECHA" >
+                            <h:outputText value="#{seguimiento.fechaSeguimiento}"/>
+                        </p:column>
+                        <p:column headerText="CODIGO"  width="52">
+                            <h:outputText value="#{seguimiento.cdrCode}"/>
+                        </p:column>
+                        <p:column headerText="ESTADO" >
+                            <h:outputText value="#{seguimiento.estadoSeguimiento eq 'O' ? 'Todo Procesado (OK)': seguimiento.estadoSeguimiento eq 'N' ? 'Nuevo':seguimiento.estadoSeguimiento eq 'B' ? 'Bloqueo':seguimiento.estadoSeguimiento eq 'P' ? 'Proceso':seguimiento.estadoSeguimiento eq 'E' ? 'Enviando a SUNAT': seguimiento.estadoSeguimiento eq 'F' ? 'FTP copia de seguridad de archivos': seguimiento.estadoSeguimiento eq 'C' ? 'Correo Electrónico': seguimiento.estadoSeguimiento eq 'X' ? 'Error de Envío':seguimiento.estadoSeguimiento eq 'ECDR' ? 'CDR':seguimiento.estadoSeguimiento eq 'Q' ? 'Error Proceso':seguimiento.estadoSeguimiento   }"
+                            />
+                        </p:column>
+                        <p:column headerText="NOTA" >
+                            <h:outputText value="#{seguimiento.cdrNota}"/>
+                        </p:column>
+                        <p:column headerText="OBSERVACION" >
+                            <h:outputText value="#{seguimiento.cdrObservacion}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <h:commandLink>
+                                <p:graphicImage library="images" name="csv.png" />
+                                <p:dataExporter type="csv" target="listErrorNormalizacion3" fileName="listaIncidencia" />
+                            </h:commandLink>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,170 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+
+    <ui:define name="content">
+
+        <h:form id="formBusqueda">
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+                    <p:panel>
+
+                        <p:toolbar style="margin-top:20px">
+                            <f:facet name="left">
+                                <p:commandButton value="Buscar Resumen del dia"
+                                                 action="#{resumenBoletasBean.buscarCabeceraFiltros}" update="ventasTable" />
+                            </f:facet>
+                            <f:facet name="right">
+                                <p:button value="Nuevo" outcome="/ResumenBoletas/registrarResumenBoletas"/>
+                            </f:facet>
+                        </p:toolbar>
+
+                    </p:panel>
+                </div>
+            </div>
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+
+                    <p:panel>
+                        <div class="FontBold Fs18 hardblue" style="margin: 15px 10px">Buscar Resumenes Diaria de Boletas </div>
+                        <div class="Separator"></div>
+
+
+
+                        <p:messages autoUpdate="true" closable="true"/>
+
+
+                        <div class="Separator"></div>
+
+                        <p:panelGrid columns="4"
+                                     columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     style="border:0px none; background-color:transparent;">
+
+                            <p:outputLabel for="numeroDocumento" value="Identificdor de Resumen" />
+                            <p:inputText id="numeroDocumento"
+                                         value="#{resumenBoletasBean.filtros.identificadorResumen}" />
+
+
+                            <p:outputLabel for="ticket" value="Numero de Ticket" />
+                            <p:inputText id="ticket"
+                                         value="#{resumenBoletasBean.filtros.nroTicket}" />
+
+
+                            <p:outputLabel for="fechaInicio" value="Fecha Generado" />
+                            <p:calendar id="fechaInicio"
+                                        value="#{resumenBoletasBean.filtros.fechaDocumento}" showOn="button"
+                                        pattern="yyyy-MM-dd">
+                            </p:calendar>
+
+                            <p:outputLabel for="fechaFin" value="Fecha Comunicacion" />
+                            <p:calendar id="fechaFin" value="#{resumenBoletasBean.filtros.fechaComunicacion}"
+                                        showOn="button"
+                                        pattern="yyyy-MM-dd" />
+
+                        </p:panelGrid>
+
+                    </p:panel>
+
+
+                </div>
+            </div>
+
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent">
+                    <p:panel>
+                        <div class="FontBold Fs18 hardblue" style="margin: 15px 10px">Resumenes Encontradas</div>
+                        <div class="Separator"></div>
+
+
+                        <p:dataTable id="ventasTable" var="venta" value="#{resumenBoletasBean.ventasFiltradas}"
+                                     reflow="true"
+                                     emptyMessage="No se encontraron usuarios para su busqueda" rows="20"
+                                     paginator="true" paginatorAlwaysVisible="false"
+                                     paginatorPosition="bottom">
+
+                            <p:column headerText="Emisión" sortBy="#{venta.resuFechaDoc}"
+                                      width="90px;">
+                                <h:outputLabel value="#{venta.resuFechaDoc}" />
+                            </p:column>
+
+                            <p:column headerText="Identificador"
+                                      sortBy="#{venta.resuIdentificador}" width="105px;">
+                                <h:outputLabel value="#{venta.resuIdentificador}" />
+                            </p:column>
+
+                            <p:column headerText="Fecha de comunicacion" width="105px;"
+                                      sortBy="#{venta.resuFechaCom}">
+                                <h:outputLabel value="#{venta.resuFechaCom}" />
+                            </p:column>
+
+                            <p:column headerText="estado Proceso" sortBy="#{venta.resuProceStatus}" width="90px;">
+                                <h:outputLabel value="#{venta.resuProceStatus eq 'O' ? 'Todo Procesado (OK)': venta.resuProceStatus eq 'N' ? 'Nuevo':venta.resuProceStatus eq 'B' ? 'Bloqueo':venta.resuProceStatus eq 'P' ? 'Proceso':venta.resuProceStatus eq 'E' ? 'Enviando a SUNAT': venta.resuProceStatus eq 'F' ? 'FTP copia de seguridad de archivos': venta.resuProceStatus eq 'C' ? 'Correo Electrónico': venta.resuProceStatus eq 'X' ? 'Error de Envío':'' }" />
+                            </p:column>
+
+                            <p:column headerText="estado Doc." width="90px;">
+                                <h:outputLabel value="#{venta.resuEstado eq '1' ? 'Nuevo': venta.resuEstado eq '2' ? 'Modifica':venta.resuEstado eq '3' ? 'Anulado':venta.resuEstado eq '4' ? 'Anulado':venta.resuEstado eq null ? 'Nuevo':'' }" />
+                            </p:column>
+
+                            <p:column headerText="Ticket" sortBy="#{venta.nroticket}" width="90px;">
+                                <h:outputLabel value="#{venta.nroticket}" />
+                            </p:column>
+
+                            <p:column headerText="Tipo Doc" width="90px;">
+                                <h:outputLabel value="#{venta.resuTipodoc}" />
+                            </p:column>
+
+
+                            <p:column headerText="Archivos"
+                                      style="text-align:center;width:100px">
+                                <!--value="cdr" -->
+                                <p:commandButton value="cdr" ajax="false" 
+                                                 style="width: 30%; height: 15px;font-size:80%;#{venta.cdrLink eq null || venta.cdrLink.length() lt 1? 'visibility: hidden;':''}">
+                                    <f:setPropertyActionListener
+                                        target="#{resumenBoletasBean.cabeceraSeleccionada}" value="#{venta}" />
+                                    <p:fileDownload value="#{resumenBoletasBean.fileCdr}" />
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column style="text-align:center;width:100px">
+                                <p:button title="Editar" icon="ui-icon-pencil" outcome="/ResumenBoletas/registrarResumenBoletas">
+                                    <f:param name="resumendiaCab" value="#{venta.codigo}" />
+                                </p:button>
+
+                                <p:commandButton  icon="ui-icon-tag" action="#{resumenBoletasBean.extraerResumenBoleta}" update="ventasTable">
+                                    <p:confirm header="Extraer Resumen Boletas"
+                                               message="Esta seguro de Extraer Resumen de Baoletas"
+                                               icon="ui-icon-alert"/>
+                                    <f:setPropertyActionListener
+                                        target="#{resumenBoletasBean.cabeceraSeleccionada}" value="#{venta}" />
+                                </p:commandButton>
+
+                                <p:commandButton  icon="ui-icon-check" action="#{resumenBoletasBean.enviaResumenBoleta}" update="ventasTable">
+                                    <p:confirm header="Envia Resumen Boletas"
+                                               message="Esta seguro de Envia Resumen de Baletas"
+                                               icon="ui-icon-alert"/>
+                                    <f:setPropertyActionListener
+                                        target="#{resumenBoletasBean.cabeceraSeleccionada}" value="#{venta}" />
+                                </p:commandButton>
+
+
+                            </p:column>
+                        </p:dataTable>
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                        </p:confirmDialog>
+
+                    </p:panel>
+                </div>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

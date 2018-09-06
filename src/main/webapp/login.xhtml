@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>EasyFact</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<h:outputScript name="js/login.js" library="sentinel-layout" />
+	<h:outputStylesheet name="css/font-icon-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/sentinel-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/core-layout.css"
+		library="sentinel-layout" />
+</h:head>
+<h:body class="fontRegular login-back white-back">
+
+	<f:metadata>
+		<f:viewParam name="login" />
+		<f:event listener="#{loginBean.preRender}" type="preRenderView"></f:event>
+	</f:metadata>
+
+
+	<div class="Container">
+		<div
+			class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent10">
+			<a href="" id="login-logo"> <h:graphicImage
+					name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout" />
+				<span class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span
+					class="softblue">Facturación </span><span class="hardblue">Electrónica</span></span>
+			</a>
+			<div class="EmptyBox10"></div>
+		</div>
+
+		<div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10"
+			id="login-box">
+			<div class="Container">
+
+				<h:form id="frm" prependId="false">
+
+					<p:messages id="mensajes" autoUpdate="true" closable="true" />
+
+					<p:panelGrid>
+
+						<div class="Container90 Fnone MarAuto TexAlCenter">
+
+							<div class="EmptyBox50"></div>
+
+							<p:inputText size="30" id="j_username" value="#{loginBean.email}"
+
+								placeholder="Email" styleClass="Container80 Fnone MarAuto Fs18" />
+
+							<div class="EmptyBox10"></div>
+							<p:password size="30" id="j_password" placeholder="Password" value="#{loginBean.password}"
+								styleClass="Container80 Fnone MarAuto Fs18" required="false"
+								 />
+
+							<div class="EmptyBox10"></div>
+							<p:selectOneMenu id="internoEmpresa"
+								styleClass="ui-selectonemenu-label ui-inputfield ui-corner-all"
+								value="#{loginBean.internoEmpresa}" required="true"
+								requiredMessage="Ingrese el Local de Venta">
+								<f:selectItems value="#{loginBean.empresasInternas}"
+									var="empresa" itemValue="#{empresa.idEmpresa}"
+									itemLabel="#{empresa.emprRazonSocial}" />
+							</p:selectOneMenu>
+
+							<div class="EmptyBox30"></div>
+							<p:commandButton value="Ingresar" action="#{loginBean.login}"
+								ajax="false" />
+							<div class="EmptyBox50"></div>
+
+							<div class="EmptyBox20"></div>
+							<p:commandLink id="forgotPassword" ajax="false" process="@none"
+								action="RecuperarPassword.xhtml?faces-redirect=true">
+								<p:outputLabel value="¿Olvido su password?" />
+							</p:commandLink>
+						</div>
+
+					</p:panelGrid>
+				</h:form>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- LOGIN BOX COVER END -->
+
+</h:body>
+</html>
