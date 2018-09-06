@@ -9,7 +9,7 @@ Esta versión 1.0 esta hecha con Maven, PrimeFaces y corre en Tomcat 8.
 ![Consulta Web de Documentos](https://github.com/joedayz/consultajoefact/blob/master/images/consulta-documentos.png)
 
 
-## Configuración de Bd en Tomcat ##
+## Configuración de Bd en el Proyecto ##
 
 La configuración a la Bd es realizada en el __persistence.xml__
 
@@ -28,6 +28,7 @@ La configuración a la Bd es realizada en el __persistence.xml__
 
     </persistence-unit>
 ```
+## Configuración de Bd en el Tomcat ##
 
 En el Tomcat se tiene que agregar dicho Resource en el archivo __server.xml__ del Tomcat mismo (tomcat/conf/server.xml)
 
